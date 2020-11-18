@@ -264,26 +264,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   m_GroundCheckDistance: 0.6
---- !u!1 &519420028 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5713490874525616690, guid: f8deb44610b2ef84fab4244cb621579f,
-    type: 3}
-  m_PrefabInstance: {fileID: 5713490874424144462}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &519420029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41c573ab5f5300743af871a67b751642, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Target: {fileID: 1165644576}
-  m_SmoothTime: 1
 --- !u!1001 &642968680
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -305,7 +285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 846b9f47a0b1d334e905dc1ea8b895d1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.02
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 846b9f47a0b1d334e905dc1ea8b895d1, type: 3}
       propertyPath: m_LocalRotation.x
@@ -354,6 +334,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 519420029, guid: f8deb44610b2ef84fab4244cb621579f, type: 3}
+      propertyPath: m_Target
+      value: 
+      objectReference: {fileID: 1165644576}
+    - target: {fileID: 519420029, guid: f8deb44610b2ef84fab4244cb621579f, type: 3}
+      propertyPath: m_Offset.z
+      value: -10
+      objectReference: {fileID: 0}
     - target: {fileID: 5713490874525616690, guid: f8deb44610b2ef84fab4244cb621579f,
         type: 3}
       propertyPath: m_Name
