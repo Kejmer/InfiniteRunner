@@ -14,6 +14,11 @@ public class CameraController : MonoBehaviour
 
     [SerializeField]
     private Vector3 m_Offset;
+
+    public void SetTarget(Transform target)
+    {
+        m_Target = target;
+    }
     
 
     // Update is called once per frame
