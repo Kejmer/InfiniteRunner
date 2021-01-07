@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private Rigidbody2D m_Rigidbody2D;
+
+    public Rigidbody2D Rigidbody => m_Rigidbody2D;
 
     [SerializeField]
     private Transform m_Feet;
@@ -39,8 +42,11 @@ public class PlayerController : MonoBehaviour
     private int m_GroundAnimatorId = Animator.StringToHash("Ground");
     private int m_CrouchAnimatorId = Animator.StringToHash("Crouch");
     private int m_VerticalSpeedAnimatorId = Animator.StringToHash("vSpeed");
+    private bool m_FacingRight = true;
 
-    private bool m_facingRight = true;
+    private bool m_IsDead = false;
+
+    public event Action<PlayerController> OnPlayerKilled;
 
     void Update()
     {
@@ -91,7 +97,7 @@ public class PlayerController : MonoBehaviour
             m_Jump = false;
         }
 
-        if (m_Movement > 0f && !m_facingRight || m_Movement < 0f && m_facingRight)
+        if (m_Movement > 0f && !m_FacingRight || m_Movement < 0f && m_FacingRight)
         {
             FlipSprite();
         } 
@@ -109,7 +115,20 @@ public class PlayerController : MonoBehaviour
 
     private void FlipSprite()
     {
-        m_facingRight = !m_facingRight;
-        m_SpriteRenderer.flipX = !m_facingRight;
+        m_FacingRight = !m_FacingRight;
+        m_SpriteRenderer.flipX = !m_FacingRight;
+    }
+
+    public void Kill()
+    {
+        if (m_IsDead)
+            return;
+        
+        m_IsDead = true;
+
+        m_Movement = 0f;
+        m_Jump = false;
+
+        OnPlayerKilled?.Invoke(this);
     }
 }

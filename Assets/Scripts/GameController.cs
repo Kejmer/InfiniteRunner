@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : ASingleton<GameController>
 {
+    private const string GAMEPLAY_SCENE_NAME = "Gameplay";
+
+    private SceneLoader m_SceneLoader;
     private ulong m_Points = 0;
     private int m_Lives = 3;
 
@@ -16,12 +20,23 @@ public class GameController : ASingleton<GameController>
         Debug.LogFormat("Total points: {0}", m_Points);
     }
 
-    public void HandleLifePickedUp(Coin life)
+    protected override void Initialize()
     {
-        if (life == null) 
-            return;
-        
-        m_Lives += 1;
-        Debug.LogFormat("Total points: {0}", m_Lives);
+        m_SceneLoader = new SceneLoader();
+        m_SceneLoader.LoadScene(GAMEPLAY_SCENE_NAME, HandleSceneLoaded);
     }
+
+    private void HandleSceneLoaded(Scene loadedScene) {
+        Debug.LogFormat("Loaded scene {0}", loadedScene.name);
+    }
+
+    // public void HandleLifePickedUp(Coin life)
+    // {
+    //     if (life == null) 
+    //         return;
+        
+    //     m_Lives += 1;
+    //     Debug.LogFormat("Total lifes: {0}", m_Lives);
+    // }
+
 }
