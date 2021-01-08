@@ -27,7 +27,7 @@ public class PlatformSpawner : MonoBehaviour
         if (m_SpawningCoroutine == null)
             return;
         
-        transform.position += m_Velocity;
+        transform.position += m_Velocity * Time.deltaTime;
     }
 
     public void StartSpawning()

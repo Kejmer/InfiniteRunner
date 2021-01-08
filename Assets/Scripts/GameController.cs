@@ -8,6 +8,9 @@ public class GameController : ASingleton<GameController>
     private const string GAMEPLAY_SCENE_NAME = "Gameplay";
 
     private SceneLoader m_SceneLoader;
+
+    private bool m_Paused = false;
+
     private ulong m_Points = 0;
     private int m_Lives = 3;
 
@@ -30,6 +33,15 @@ public class GameController : ASingleton<GameController>
         Debug.LogFormat("Loaded scene {0}", loadedScene.name);
     }
 
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            m_Paused = !m_Paused;
+            Time.timeScale = m_Paused ? 0f : 1f;
+        }
+    }
     // public void HandleLifePickedUp(Coin life)
     // {
     //     if (life == null) 
