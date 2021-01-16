@@ -15,6 +15,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private float m_crouchTime = 20.0f;
 
+    [SerializeField]
+    private float m_ForceModifier = 5000f;
+
     private float timer;
     private float m_lastCrouch;
     private bool m_crouch = false;
@@ -22,11 +25,9 @@ public class EnemyController : MonoBehaviour
 
     public Rigidbody2D Rigidbody => m_Rigidbody2D;   
 
-
-    private int m_SpeedAnimatorId = Animator.StringToHash("Speed");
+    
     private int m_GroundAnimatorId = Animator.StringToHash("Ground");
     private int m_CrouchAnimatorId = Animator.StringToHash("Crouch");
-    private int m_VerticalSpeedAnimatorId = Animator.StringToHash("vSpeed");
 
     private void Start()
     {
@@ -52,5 +53,15 @@ public class EnemyController : MonoBehaviour
     {
         m_Animator.SetBool(m_GroundAnimatorId, true);
         m_Animator.SetBool(m_CrouchAnimatorId, m_crouch);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        PlayerController player = collision.GetComponent<PlayerController>();
+        if (player != null)
+        {
+            player.Kill();
+            player.Rigidbody.AddForce(Vector3.up * m_ForceModifier);
+        }
     }
 }
