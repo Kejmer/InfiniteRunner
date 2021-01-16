@@ -17,7 +17,7 @@ public class PlatformSpawner : MonoBehaviour
     private EnemyPlatformSet m_EnemyPlatformSet = null;
 
     [SerializeField]
-    private float m_EnemyPlatformChance = 0.5f;
+    private float m_EnemyPlatformChance = 0.3f;
 
     private Coroutine m_SpawningCoroutine = null;
 
@@ -75,7 +75,7 @@ public class PlatformSpawner : MonoBehaviour
     private void SpawnEnemyPlatform()
     {
         GameObject enemyPlatformPrefab = m_EnemyPlatformSet.GetRandom();
-        GameObject platformInstance = Instantiate(enemyPlatformPrefab, transform.position + new Vector3(0.0f, 5.0f), Quaternion.identity);
+        GameObject platformInstance = Instantiate(enemyPlatformPrefab, transform.position + new Vector3(0.0f, 3.0f), Quaternion.identity);
 
         m_SpawnedPlatforms.Add(platformInstance);
     }
