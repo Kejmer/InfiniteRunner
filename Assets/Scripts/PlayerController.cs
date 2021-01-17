@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour
 
     private bool m_IsGrounded = false;
 
+    private bool m_canAirJump = false;
+
     private RaycastHit2D[] m_RaycastResults = new RaycastHit2D[1];
 
     private int m_SpeedAnimatorId = Animator.StringToHash("Speed");
@@ -72,7 +74,12 @@ public class PlayerController : MonoBehaviour
             if (raycastHit.collider != null)
             {
                 m_IsGrounded = true;
+                break;
             }
+        }
+        
+        if (m_IsGrounded) {
+            m_canAirJump = true;
         }
 
         UpdateMovement();
@@ -94,8 +101,12 @@ public class PlayerController : MonoBehaviour
     {
         m_Rigidbody2D.velocity = new Vector2(m_Movement, m_Rigidbody2D.velocity.y);
 
-        if (m_Jump && m_IsGrounded)
+        if (m_Jump && (m_IsGrounded || m_canAirJump))
         {
+            if (!m_IsGrounded) {
+                m_canAirJump = false;
+                m_Rigidbody2D.velocity = new Vector2(m_Movement, 0);
+            } 
             m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 
             m_IsGrounded = false;
