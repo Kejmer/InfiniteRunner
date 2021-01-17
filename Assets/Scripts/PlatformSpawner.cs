@@ -13,6 +13,15 @@ public class PlatformSpawner : MonoBehaviour
     [SerializeField]
     private PlatformSet m_PlatformSet = null;
 
+    [SerializeField]
+    private EnemyPlatformSet m_EnemyPlatformSet = null;
+
+    [SerializeField]
+    private float m_EnemyPlatformChance = 0.3f;
+
+    [SerializeField]
+    private float m_EnemyPlatformHeight = 4.0f;
+
     private Coroutine m_SpawningCoroutine = null;
 
     private List<GameObject> m_SpawnedPlatforms = new List<GameObject>();
@@ -22,11 +31,11 @@ public class PlatformSpawner : MonoBehaviour
         StartSpawning();
     }
 
-    private void Update() 
+    private void Update()
     {
         if (m_SpawningCoroutine == null)
             return;
-        
+
         transform.position += m_Velocity * Time.deltaTime;
     }
 
@@ -38,7 +47,7 @@ public class PlatformSpawner : MonoBehaviour
 
     public void StopSpawning()
     {
-        if (m_SpawningCoroutine != null) 
+        if (m_SpawningCoroutine != null)
         {
             StopCoroutine(m_SpawningCoroutine);
             m_SpawningCoroutine = null;
@@ -49,8 +58,12 @@ public class PlatformSpawner : MonoBehaviour
     {
         while (true)
         {
-            SpawnPlatform();
             yield return new WaitForSeconds(m_SpawnInterval);
+
+            SpawnPlatform();
+
+            if (Random.Range(0f, 1f) < m_EnemyPlatformChance)
+                SpawnEnemyPlatform();
         }
     }
 
@@ -62,11 +75,19 @@ public class PlatformSpawner : MonoBehaviour
         m_SpawnedPlatforms.Add(platformInstance);
     }
 
+    private void SpawnEnemyPlatform()
+    {
+        GameObject enemyPlatformPrefab = m_EnemyPlatformSet.GetRandom();
+        GameObject platformInstance = Instantiate(enemyPlatformPrefab, transform.position + new Vector3(0.0f, m_EnemyPlatformHeight), Quaternion.identity);
+
+        m_SpawnedPlatforms.Add(platformInstance);
+    }
+
     public void ResetToPosition(Vector3 position, bool destroyAllPlatforms = true)
     {
         transform.position = position;
 
-        if (destroyAllPlatforms) 
+        if (destroyAllPlatforms)
         {
             for (int i = 0; i < m_SpawnedPlatforms.Count; i++)
             {
