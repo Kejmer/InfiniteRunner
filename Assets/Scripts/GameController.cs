@@ -15,11 +15,11 @@ public class GameController : ASingleton<GameController>
     private bool m_Paused = false;
 
     private ulong m_Points = 0;
-    // private int m_Lives = 3;
 
     public void ResetCoins()
     {
         m_Points = 0;
+        MainInterfaceView.Configure(m_Points);
     }
 
     public void HandleCoinPickedUp(Coin coin)
@@ -55,14 +55,5 @@ public class GameController : ASingleton<GameController>
         m_Paused = !m_Paused;
         Time.timeScale = m_Paused ? 0f : 1f;
     }
-
-    // public void HandleLifePickedUp(Coin life)
-    // {
-    //     if (life == null) 
-    //         return;
-        
-    //     m_Lives += 1;
-    //     Debug.LogFormat("Total lifes: {0}", m_Lives);
-    // }
 
 }

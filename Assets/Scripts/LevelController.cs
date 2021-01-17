@@ -36,6 +36,7 @@ public class LevelController : MonoBehaviour
     {
         Unsubscribe();
         StartCoroutine(RestartLevelCroutine());
+        GameController.Instance.ResetCoins();
     }
 
     private void Unsubscribe()
