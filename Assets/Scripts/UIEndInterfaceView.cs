@@ -6,13 +6,13 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class UIMainInterfaceView : UIBehaviour
+public class UIEndInterfaceView : UIBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI m_CoinText;
+    private Button m_EndButton;
 
-    public void Configure(ulong coinNumber)
+    public void Initialize(UnityAction onEnd)
     {
-        m_CoinText.text = ": " + coinNumber.ToString();
+        m_EndButton.onClick.AddListener(onEnd);        
     }
 }
